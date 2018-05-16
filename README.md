@@ -1,5 +1,7 @@
-Applicazione Web di prova
+#Applicazione Web di prova
 
-Author: Giuseppe Fagnani (dartfagnans)
+##Author
+Giuseppe Fagnani (dartfagnans)
 
-Istruzioni per l'avvio: digitare nodemon app.js e collegarsi in localhost sulla porta 3000
+##Istruzioni per l'avvio
+digitare *node app.js* e collegarsi in *localhost* sulla **porta 3000**
