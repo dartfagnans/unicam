@@ -61,16 +61,21 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/students', function (req, res) {
-    sqlite.getStudents( function (students) {
+    sqlite.getStudents(function (students) {
         res.render('students', {
-          "students": students
+            "students": students
         });
-    
-      });
+
+    });
 });
 
 app.get('/teachers', function (req, res) {
-    res.render('teachers');
+    sqlite.getTeachers(function (teachers) {
+        res.render('teachers', {
+            "teachers": teachers
+        });
+
+    });
 });
 
 app.get('/segretary', function (req, res) {
