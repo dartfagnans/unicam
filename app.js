@@ -13,6 +13,10 @@ const dataAccess = {
     password: "admin"
 }
 
+var messages = {
+    loginError: ""
+}
+
 var checkAuthentication =   function(req, res, next) {
     console.log(req.session)
     if (req.session && req.session.dataAccess)
@@ -39,7 +43,8 @@ app.get('/', function (req, res) {
 });
 
 app.get('/login', function (req, res) {
-    res.render('login');
+    messages.loginError = "";
+    res.render('login', messages);
 });
 
 app.post('/login', function (req, res) {
@@ -52,7 +57,8 @@ app.post('/login', function (req, res) {
         console.log("is authenticated")
         res.redirect('/personal_page');
     } else {
-        res.redirect('/');
+        messages.loginError = "I dati di accesso non sono validi";
+        res.render('login', messages);
     }
 });
 
