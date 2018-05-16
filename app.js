@@ -8,6 +8,24 @@ var cookieParser = require('cookie-parser');
 
 const port = 3000;
 
+const dataAccess = {
+    email: "admin@admin.it",
+    password: "admin"
+}
+
+var checkAuthentication =   function(req, res, next) {
+    console.log(req.session)
+    if (req.session && req.session.dataAccess)
+    {
+      next();
+    }
+    else
+    {
+      // user doesn't have access, return an HTTP 401 response
+      res.redirect("/");
+    }
+  };
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,6 +40,20 @@ app.get('/', function (req, res) {
 
 app.get('/login', function (req, res) {
     res.render('login');
+});
+
+app.post('/login', function (req, res) {
+    user = req.body.email;
+    password = req.body.password;
+    session = req.session;
+
+    if (user == dataAccess.email && password == dataAccess.password) {
+        session.dataAccess = dataAccess;
+        console.log("is authenticated")
+        res.redirect('/personal_page');
+    } else {
+        res.redirect('/');
+    }
 });
 
 app.get('/students', function (req, res) {
@@ -39,6 +71,10 @@ app.get('/segretary', function (req, res) {
 app.get('/contacts', function (req, res) {
     res.render('contacts');
 });
+
+app.get('/personal_page', checkAuthentication, function (req, res) {
+    res.render('personal_page');
+})
 
 app.listen(port, function () {
     console.log("In ascolto sulla porta " + port);
