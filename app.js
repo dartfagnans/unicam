@@ -17,18 +17,16 @@ var messages = {
     loginError: ""
 }
 
-var checkAuthentication =   function(req, res, next) {
+var checkAuthentication = function (req, res, next) {
     console.log(req.session)
-    if (req.session && req.session.dataAccess)
-    {
-      next();
+    if (req.session && req.session.dataAccess) {
+        next();
     }
-    else
-    {
-      // user doesn't have access, return an HTTP 401 response
-      res.redirect("/");
+    else {
+        // user doesn't have access, return an HTTP 401 response
+        res.redirect("/");
     }
-  };
+};
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
@@ -54,7 +52,7 @@ app.post('/login', function (req, res) {
 
     if (user == dataAccess.email && password == dataAccess.password) {
         session.dataAccess = dataAccess;
-        console.log("is authenticated")
+        messages.loginError = "";
         res.redirect('/personal_page');
     } else {
         messages.loginError = "I dati di accesso non sono validi";
