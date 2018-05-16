@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var cookieSession = require('cookie-session');
 var cookieParser = require('cookie-parser');
+var sqlite = require("./module/sqlite.js");
 
 const port = 3000;
 
@@ -60,7 +61,12 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/students', function (req, res) {
-    res.render('students');
+    sqlite.getStudents( function (students) {
+        res.render('students', {
+          "students": students
+        });
+    
+      });
 });
 
 app.get('/teachers', function (req, res) {
