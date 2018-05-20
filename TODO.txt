@@ -1,0 +1,5 @@
+TODO:
+
+1) Sistema di Login con Username e PW personalizzati, che permettono di visualizzare sulla pagina personale solamente i propri voti degli esami svolti
+
+2) Sistema di Registrazione
