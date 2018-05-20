@@ -69,6 +69,29 @@
     </div>
   </nav>
 
+  <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Corso</th>
+            <th scope="col">Voto Ottenuto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% votes.forEach(function(vote) { %>
+            <tr>
+              <td class="align-baseline">
+                <%=vote.course %>
+              </td>
+              <td class="align-top">
+                <%= vote.vote %>
+              </td>
+            </tr>
+            <% }); %>
+        </tbody>
+      </table>
+    </div>
+
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

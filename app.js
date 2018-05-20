@@ -18,6 +18,10 @@ var messages = {
     loginError: ""
 }
 
+var flags = {
+    isAutenticade: checkAuthentication
+}
+
 var checkAuthentication = function (req, res, next) {
     if (req.session && req.session.dataAccess) {
         next();
@@ -87,7 +91,12 @@ app.get('/contacts', function (req, res) {
 });
 
 app.get('/personal_page', checkAuthentication, function (req, res) {
-    res.render('personal_page');
+    sqlite.getVotes(function (votes) {
+        res.render('personal_page', {
+            "votes": votes
+        });
+
+    });
 })
 
 app.listen(port, function () {

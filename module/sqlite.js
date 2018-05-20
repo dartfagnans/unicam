@@ -55,6 +55,33 @@ module.exports = {
 
         db.close();
 
+    },
+
+    getVotes: function (callback) {
+        let db = new sqlite3.Database(database);
+        var votes = []
+        let sql = `SELECT * FROM VOTI ORDER BY VOTO DESC`;
+
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach((row) => {
+                console.log("row", row);
+                var vote = {};
+                vote.id=row.IdMateria;
+                vote.course = row.NomeMateria;
+                vote.vote = row.Voto;
+                console.log("vote", vote)
+
+                votes.push(vote)
+            });
+            //call the callback
+            callback(votes)
+
+        });
+
+        db.close();
     }
 
 }
