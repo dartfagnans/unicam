@@ -5,3 +5,5 @@ TODO:
     1.2) Visualizzare su Pagina Personale il Join tra la tabella Voti e Studenti (Select * from Studenti, Voti where Studenti.Matricola = Voti.MatricolaStudente) 
 
 2) Sistema di Registrazione
+
+3) Popolare Pagina HOME
