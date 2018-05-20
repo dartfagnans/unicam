@@ -26,6 +26,7 @@ var checkAuthentication = function (req, res, next) {
     }
     else {
         // user doesn't have access, return an HTTP 401 response
+        message.isAuthenticated = false;
         res.redirect("/");
     }
 };
@@ -66,7 +67,7 @@ app.get('/students', function (req, res) {
     sqlite.getStudents(function (students) {
         res.render('students', {
             "students": students,
-            "isAuthenticated": checkAuthentication
+            "isAuthenticated": messages.isAuthenticated
         });
 
     });
@@ -76,7 +77,7 @@ app.get('/teachers', function (req, res) {
     sqlite.getTeachers(function (teachers) {
         res.render('teachers', {
             "teachers": teachers,
-            "isAuthenticated": checkAuthentication
+            "isAuthenticated": messages.isAuthenticated
         });
 
     });
@@ -94,10 +95,16 @@ app.get('/personal_page', checkAuthentication, function (req, res) {
     sqlite.getVotes(function (votes) {
         res.render('personal_page', {
             "votes": votes,
-            "isAuthenticated": checkAuthentication
+            "isAuthenticated": messages.isAuthenticated
         });
 
     });
+});
+
+app.post('/personal_page', function (req, res) {
+    messages.isAuthenticated = false;
+    req.session = null;
+    res.render ('index', messages);
 })
 
 app.listen(port, function () {
