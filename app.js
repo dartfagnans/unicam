@@ -15,15 +15,13 @@ const dataAccess = {
 }
 
 var messages = {
-    loginError: ""
-}
-
-var flags = {
-    isAutenticade: checkAuthentication
+    loginError: "",
+    isAuthenticated: false
 }
 
 var checkAuthentication = function (req, res, next) {
     if (req.session && req.session.dataAccess) {
+        messages.isAuthenticated = true;
         next();
     }
     else {
@@ -41,7 +39,7 @@ app.use(cookieSession({
 }));
 
 app.get('/', function (req, res) {
-    res.render('index');
+    res.render('index', messages);
 });
 
 app.get('/login', function (req, res) {
@@ -67,7 +65,8 @@ app.post('/login', function (req, res) {
 app.get('/students', function (req, res) {
     sqlite.getStudents(function (students) {
         res.render('students', {
-            "students": students
+            "students": students,
+            "isAuthenticated": checkAuthentication
         });
 
     });
@@ -76,24 +75,26 @@ app.get('/students', function (req, res) {
 app.get('/teachers', function (req, res) {
     sqlite.getTeachers(function (teachers) {
         res.render('teachers', {
-            "teachers": teachers
+            "teachers": teachers,
+            "isAuthenticated": checkAuthentication
         });
 
     });
 });
 
 app.get('/segretary', function (req, res) {
-    res.render('segretary');
+    res.render('segretary', messages);
 });
 
 app.get('/contacts', function (req, res) {
-    res.render('contacts');
+    res.render('contacts', messages);
 });
 
 app.get('/personal_page', checkAuthentication, function (req, res) {
     sqlite.getVotes(function (votes) {
         res.render('personal_page', {
-            "votes": votes
+            "votes": votes,
+            "isAuthenticated": checkAuthentication
         });
 
     });
