@@ -82,6 +82,31 @@ module.exports = {
         });
 
         db.close();
+    },
+
+    getDataAccess: function (callback) {
+        let db = new sqlite3.Database(database);
+        var dataAccesses = [];
+        let sql = "SELECT * FROM DATIACCESSO";
+
+        db.all (sql, [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+
+            rows.forEach((row) => {
+                var student = {};
+                student.matricola = row.matricola;
+                student.mail = row.mail;
+                student.password = row.password;
+
+                dataAccesses.push(student);
+            });
+
+            callback(dataAccesses);
+        });
+
+        db.close();
     }
 
 }
