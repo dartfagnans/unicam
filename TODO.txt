@@ -7,4 +7,7 @@ TODO:
 2) Sistema di Registrazione
     2.1) Registrazione di uno Studente
         2.1.1) Una volta registrato un nuovo studente viene inserito nella tabella studenti
+    2.2) Registrazione di un Docente
+        2.2.1) Una volta registrato un nuovo docente viene inserito nella tabella docenti
+        
 3) Popolare Pagina HOME

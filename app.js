@@ -53,6 +53,22 @@ app.post('/login', function (req, res) {
     password = req.body.password;
     session = req.session;
 
+    sqlite.getStudents(function (students) {
+        students.forEach(element => {
+            if (user == element.mail && password == element.password) {
+                dataAccess.email = user;
+                dataAccess.password = password;
+                session.dataAccess = dataAccess;
+                messages.loginError = "";
+                res.redirect('/personal_page');
+                return null;
+            }
+        })
+        messages.loginError = "I dati di accesso non sono validi";
+        res.render('login', messages);
+    });
+    });
+/*
     if (user == dataAccess.email && password == dataAccess.password) {
         session.dataAccess = dataAccess;
         messages.loginError = "";
@@ -61,7 +77,7 @@ app.post('/login', function (req, res) {
         messages.loginError = "I dati di accesso non sono validi";
         res.render('login', messages);
     }
-});
+});*/
 
 app.get('/students', function (req, res) {
     sqlite.getStudents(function (students) {

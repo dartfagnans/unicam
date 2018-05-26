@@ -5,7 +5,7 @@ module.exports = {
     getStudents: function (callback) {
         let db = new sqlite3.Database(database);
         var students = []
-        let sql = "SELECT * FROM STUDENTI WHERE NOME != 'Admin' ORDER BY Matricola";
+        let sql = "SELECT * FROM STUDENTI ORDER BY Matricola";
         db.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
