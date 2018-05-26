@@ -1,9 +1,10 @@
 TODO:
 
 1) Sistema di Login con Username e PW personalizzati, che permettono di visualizzare sulla pagina personale solamente i propri voti degli esami svolti
-    1.1) Modificare DB aggiungendo colonne "MatricolaStudente" e "IdProfessore" nella tabella "VOTI"
+    1.1) Modificare DB aggiungendo colonne "MatricolaStudente" e "IdProfessore" nella tabella "VOTI" (FATTO)
     1.2) Visualizzare su Pagina Personale il Join tra la tabella Voti e Studenti (Select * from Studenti, Voti where Studenti.Matricola = Voti.MatricolaStudente) 
 
 2) Sistema di Registrazione
-
+    2.1) Registrazione di uno Studente
+        2.1.1) Una volta registrato un nuovo studente viene inserito nella tabella studenti
 3) Popolare Pagina HOME

@@ -5,7 +5,7 @@ module.exports = {
     getStudents: function (callback) {
         let db = new sqlite3.Database(database);
         var students = []
-        let sql = `SELECT * FROM STUDENTI ORDER BY NOME`;
+        let sql = "SELECT * FROM STUDENTI WHERE NOME != 'Admin' ORDER BY Matricola";
         db.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
@@ -16,6 +16,8 @@ module.exports = {
                 student.id=row.Matricola;
                 student.name = row.Nome;
                 student.surname = row.Cognome;
+                student.mail = row.Mail;
+                student.password = row.Password;
                 console.log("student", student)
 
                 students.push(student)
@@ -83,30 +85,4 @@ module.exports = {
 
         db.close();
     },
-
-    getDataAccess: function (callback) {
-        let db = new sqlite3.Database(database);
-        var dataAccesses = [];
-        let sql = "SELECT * FROM DATIACCESSO";
-
-        db.all (sql, [], (err, rows) => {
-            if (err) {
-                throw err;
-            }
-
-            rows.forEach((row) => {
-                var student = {};
-                student.matricola = row.matricola;
-                student.mail = row.mail;
-                student.password = row.password;
-
-                dataAccesses.push(student);
-            });
-
-            callback(dataAccesses);
-        });
-
-        db.close();
-    }
-
 }
