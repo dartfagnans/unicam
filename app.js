@@ -53,7 +53,7 @@ app.post('/login', function (req, res) {
     password = req.body.password;
     session = req.session;
 
-    sqlite.getStudents(function (students) {
+    sqlite.getUsers(function (students) {
         students.forEach(element => {
             if (user == element.mail && password == element.password) {
                 dataAccess.email = user;

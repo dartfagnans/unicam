@@ -5,7 +5,7 @@ module.exports = {
     getStudents: function (callback) {
         let db = new sqlite3.Database(database);
         var students = []
-        let sql = "SELECT * FROM STUDENTI ORDER BY Matricola";
+        let sql = 'SELECT * FROM UTENTI WHERE Tipo = "s" ORDER BY Matricola ';
         db.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
@@ -34,7 +34,7 @@ module.exports = {
     getTeachers: function (callback) {
         let db = new sqlite3.Database(database);
         var teachers = []
-        let sql = `SELECT * FROM DOCENTI ORDER BY NOME`;
+        let sql = `SELECT * FROM UTENTI WHERE TIPO=="d" ORDER BY Matricola `;
         db.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
@@ -85,4 +85,34 @@ module.exports = {
 
         db.close();
     },
+
+    getUsers: function (callback) {
+        let db = new sqlite3.Database(database);
+        var students = []
+        let sql = "SELECT * FROM UTENTI ORDER BY Matricola";
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach((row) => {
+                console.log("row", row);
+                var student = {};
+                student.id=row.Matricola;
+                student.name = row.Nome;
+                student.surname = row.Cognome;
+                student.mail = row.Mail;
+                student.password = row.Password;
+                student.type = row.Tipo;
+                console.log("student", student)
+
+                students.push(student)
+            });
+            //call the callback
+            callback(students)
+
+        });
+
+        db.close();
+
+    }
 }
